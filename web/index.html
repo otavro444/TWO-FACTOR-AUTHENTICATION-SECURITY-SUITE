@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>2FA Shield — Security Suite</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- ── Particle Canvas ─────────────────────────────────────── -->
+<canvas id="particles"></canvas>
+
+<!-- ── Header / Nav ───────────────────────────────────────── -->
+<header class="header" id="header">
+  <nav class="nav">
+    <div class="nav-logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#7C3AED"/>
+              <stop offset="50%" style="stop-color:#06B6D4"/>
+              <stop offset="100%" style="stop-color:#10B981"/>
+            </linearGradient>
+          </defs>
+          <!-- Shield shape -->
+          <path d="M30 4 L52 14 L52 30 C52 43 42 54 30 58 C18 54 8 43 8 30 L8 14 Z"
+                fill="url(#shieldGrad)" opacity="0.15"/>
+          <path d="M30 4 L52 14 L52 30 C52 43 42 54 30 58 C18 54 8 43 8 30 L8 14 Z"
+                fill="none" stroke="url(#shieldGrad)" stroke-width="2.5"/>
+          <!-- Lock body -->
+          <rect x="21" y="30" width="18" height="14" rx="3"
+                fill="url(#shieldGrad)" opacity="0.9"/>
+          <!-- Lock shackle -->
+          <path d="M24 30 L24 25 C24 20 36 20 36 25 L36 30"
+                fill="none" stroke="url(#shieldGrad)" stroke-width="2.5"
+                stroke-linecap="round"/>
+          <!-- Keyhole -->
+          <circle cx="30" cy="36" r="2.5" fill="white" opacity="0.9"/>
+          <rect x="29" y="36" width="2" height="4" rx="1" fill="white" opacity="0.9"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <span class="logo-name">2FA Shield</span>
+        <span class="logo-tag">Security Suite</span>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="#dashboard" class="nav-link active">Dashboard</a>
+      <a href="#accounts"  class="nav-link">Accounts</a>
+      <a href="#verify"    class="nav-link">Verify</a>
+      <a href="#settings"  class="nav-link">Settings</a>
+    </div>
+    <div class="nav-status">
+      <span class="status-dot"></span>
+      <span class="status-text">Vault Secured</span>
+    </div>
+  </nav>
+</header>
+
+<!-- ── Hero ───────────────────────────────────────────────── -->
+<section class="hero" id="dashboard">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      RFC 6238 Compliant · AES-128 Encrypted
+    </div>
+    <h1 class="hero-title">
+      Two-Factor<br/>
+      <span class="gradient-text">Authentication</span><br/>
+      Security Suite
+    </h1>
+    <p class="hero-subtitle">
+      Generate, manage, and verify TOTP codes with military-grade encryption.
+      Open-source, privacy-first, and beautifully designed.
+    </p>
+    <div class="hero-actions">
+      <button class="btn btn-primary" onclick="openModal('addAccount')">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"
+             viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        Add Account
+      </button>
+      <button class="btn btn-ghost" onclick="showSection('verify')">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"
+             viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.6-1.4A9 9 0 1 1 4.4 19.6"/></svg>
+        Verify Code
+      </button>
+    </div>
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-value" id="totalAccounts">0</span>
+        <span class="stat-label">Accounts</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-value gradient-text">RFC 6238</span>
+        <span class="stat-label">Standard</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-value" style="color:#10B981">AES-128</span>
+        <span class="stat-label">Encryption</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-value" style="color:#F59E0B">30s</span>
+        <span class="stat-label">Period</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <!-- Central OTP display -->
+    <div class="otp-showcase">
+      <div class="otp-ring otp-ring-outer"></div>
+      <div class="otp-ring otp-ring-mid"></div>
+      <div class="otp-ring otp-ring-inner"></div>
+      <div class="otp-center">
+        <div class="otp-icon">🔐</div>
+        <div class="otp-display" id="heroCode">——— ———</div>
+        <div class="otp-timer-wrap">
+          <svg class="otp-arc" viewBox="0 0 60 60">
+            <circle cx="30" cy="30" r="26" fill="none"
+                    stroke="rgba(124,58,237,0.2)" stroke-width="4"/>
+            <circle cx="30" cy="30" r="26" fill="none"
+                    stroke="url(#arcGrad)" stroke-width="4"
+                    stroke-dasharray="163" stroke-dashoffset="0"
+                    stroke-linecap="round"
+                    transform="rotate(-90 30 30)"
+                    id="arcProgress"/>
+            <defs>
+              <linearGradient id="arcGrad">
+                <stop offset="0%" stop-color="#7C3AED"/>
+                <stop offset="100%" stop-color="#06B6D4"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <span class="otp-countdown" id="heroCountdown">30</span>
+        </div>
+        <div class="otp-label">Live TOTP Code</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Accounts Section ────────────────────────────────────── -->
+<section class="section" id="accounts">
+  <div class="section-header">
+    <div>
+      <h2 class="section-title">Your Accounts</h2>
+      <p class="section-subtitle">Live TOTP codes refresh automatically every 30 seconds</p>
+    </div>
+    <button class="btn btn-primary btn-sm" onclick="openModal('addAccount')">
+      <svg width="16" height="16" fill="none" stroke="currentColor"
+           stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+      New Account
+    </button>
+  </div>
+
+  <div class="accounts-grid" id="accountsGrid">
+    <!-- Cards injected by JS -->
+  </div>
+
+  <div class="empty-state" id="emptyState">
+    <div class="empty-icon">🔐</div>
+    <h3>No accounts yet</h3>
+    <p>Add your first 2FA account to get started</p>
+    <button class="btn btn-primary" onclick="openModal('addAccount')">
+      Add First Account
+    </button>
+  </div>
+</section>
+
+<!-- ── Verify Section ──────────────────────────────────────── -->
+<section class="section" id="verify" style="display:none">
+  <div class="section-header">
+    <div>
+      <h2 class="section-title">Verify Code</h2>
+      <p class="section-subtitle">Check if a TOTP code is valid right now</p>
+    </div>
+  </div>
+
+  <div class="verify-card">
+    <div class="verify-form">
+      <div class="form-group">
+        <label class="form-label">Select Account</label>
+        <select class="form-select" id="verifyAccount">
+          <option value="">Choose account...</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Enter 6-Digit Code</label>
+        <div class="code-input-wrap">
+          <input type="text" class="code-input" id="verifyCode"
+                 placeholder="000 000" maxlength="7"
+                 oninput="formatCodeInput(this)"/>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-full" onclick="verifyCode()">
+        <svg width="18" height="18" fill="none" stroke="currentColor"
+             stroke-width="2.5" viewBox="0 0 24 24">
+          <path d="M9 12l2 2 4-4m5.6-1.4A9 9 0 1 1 4.4 19.6"/>
+        </svg>
+        Verify Code
+      </button>
+    </div>
+    <div class="verify-result" id="verifyResult" style="display:none"></div>
+  </div>
+</section>
+
+<!-- ── Settings Section ────────────────────────────────────── -->
+<section class="section" id="settings" style="display:none">
+  <div class="section-header">
+    <h2 class="section-title">Settings</h2>
+  </div>
+  <div class="settings-grid">
+    <div class="setting-card">
+      <div class="setting-icon" style="background:rgba(124,58,237,0.15)">🎨</div>
+      <div class="setting-info">
+        <h4>Theme</h4>
+        <p>Switch between dark and light mode</p>
+      </div>
+      <div class="toggle" onclick="toggleTheme(this)">
+        <div class="toggle-knob"></div>
+      </div>
+    </div>
+    <div class="setting-card">
+      <div class="setting-icon" style="background:rgba(6,182,212,0.15)">🔔</div>
+      <div class="setting-info">
+        <h4>Code Expiry Alerts</h4>
+        <p>Warn when a code has less than 5s left</p>
+      </div>
+      <div class="toggle active" onclick="this.classList.toggle('active')">
+        <div class="toggle-knob"></div>
+      </div>
+    </div>
+    <div class="setting-card">
+      <div class="setting-icon" style="background:rgba(16,185,129,0.15)">📋</div>
+      <div class="setting-info">
+        <h4>Auto-Copy</h4>
+        <p>Copy code to clipboard when clicked</p>
+      </div>
+      <div class="toggle active" onclick="this.classList.toggle('active')">
+        <div class="toggle-knob"></div>
+      </div>
+    </div>
+    <div class="setting-card">
+      <div class="setting-icon" style="background:rgba(239,68,68,0.15)">🗑️</div>
+      <div class="setting-info">
+        <h4>Clear All Data</h4>
+        <p>Remove all accounts from local storage</p>
+      </div>
+      <button class="btn btn-danger btn-sm" onclick="clearAll()">Clear</button>
+    </div>
+  </div>
+</section>
+
+<!-- ── Toast Container ─────────────────────────────────────── -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ── Modals ──────────────────────────────────────────────── -->
+
+<!-- Add Account Modal -->
+<div class="modal-overlay" id="modal-addAccount" onclick="closeModalOutside(event,'addAccount')">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title">
+        <svg width="22" height="22" fill="none" stroke="url(#mg1)" stroke-width="2.5"
+             viewBox="0 0 24 24"><defs><linearGradient id="mg1"><stop stop-color="#7C3AED"/>
+             <stop offset="1" stop-color="#06B6D4"/></linearGradient></defs>
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        Add 2FA Account
+      </h3>
+      <button class="modal-close" onclick="closeModal('addAccount')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Account Name <span class="required">*</span></label>
+        <input type="text" class="form-input" id="addName"
+               placeholder="e.g. GitHub, Google, Twitter"/>
+        <span class="form-hint">A recognisable name for this account</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Service / Issuer</label>
+        <input type="text" class="form-input" id="addIssuer"
+               placeholder="e.g. GitHub Inc."/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Secret Key</label>
+        <div class="input-with-btn">
+          <input type="text" class="form-input mono" id="addSecret"
+                 placeholder="Leave blank to auto-generate"/>
+          <button class="btn btn-ghost btn-sm" onclick="generateSecret()">Generate</button>
+        </div>
+        <span class="form-hint">Base32 encoded TOTP secret from your service</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Icon / Emoji</label>
+        <div class="emoji-picker" id="emojiPicker">
+          🔐 🏦 📧 💻 🎮 🛒 🏥 🎓 🔑 💳 🌐 📱 🏠 ✈️ 🎵
+        </div>
+        <input type="hidden" id="selectedEmoji" value="🔐"/>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('addAccount')">Cancel</button>
+      <button class="btn btn-primary" onclick="addAccount()">
+        <svg width="16" height="16" fill="none" stroke="currentColor"
+             stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+        Add Account
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- View / QR Modal -->
+<div class="modal-overlay" id="modal-viewAccount" onclick="closeModalOutside(event,'viewAccount')">
+  <div class="modal modal-wide">
+    <div class="modal-header">
+      <h3 class="modal-title" id="viewModalTitle">Account Details</h3>
+      <button class="modal-close" onclick="closeModal('viewAccount')">✕</button>
+    </div>
+    <div class="modal-body" id="viewModalBody"></div>
+  </div>
+</div>
+
+<!-- Backup Codes Modal -->
+<div class="modal-overlay" id="modal-backup" onclick="closeModalOutside(event,'backup')">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title">🔑 Backup Recovery Codes</h3>
+      <button class="modal-close" onclick="closeModal('backup')">✕</button>
+    </div>
+    <div class="modal-body" id="backupBody"></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('backup')">Close</button>
+      <button class="btn btn-primary" onclick="downloadBackupCodes()">
+        Download Codes
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

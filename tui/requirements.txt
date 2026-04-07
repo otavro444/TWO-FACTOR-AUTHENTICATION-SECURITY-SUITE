@@ -1,0 +1,6 @@
+rich>=13.7.0
+pyotp>=2.9.0
+qrcode[pil]>=7.4.2
+prompt_toolkit>=3.0.43
+cryptography>=41.0.0
+Pillow>=10.0.0

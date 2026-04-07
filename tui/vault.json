@@ -1,0 +1,12 @@
+{
+  "accounts": {
+    "GitHub": {
+      "secret": "gAAAAABp1Xou4raGjHhGMF9tteh4ueDxn9gzLfgJNqz1OYg9Ms2aATNlweSTOZXE07tPRcAQs7ri4lyHUdFNkczRntMwQPi3fUzasGYBt5jZOVfRaB5OFkTyqrds8uOXut5UyO0-wlV5",
+      "issuer": "michaelgregoryibizugbe",
+      "created": "2026-04-07T22:42:06.575243",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+    }
+  }
+}
