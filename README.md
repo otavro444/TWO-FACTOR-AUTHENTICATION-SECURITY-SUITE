@@ -55,8 +55,8 @@
 
 ```bash
 # Clone the repo
-git clone https://github.com/yourusername/2fa-shield.git
-cd 2fa-shield/tui
+git clone https://github.com/michaelgregoryibizugbe/TWO-FACTOR-AUTHENTICATION-SECURITY-SUITE.git
+cd TWO-FACTOR-AUTHENTICATION-SECURITY-SUITE/tui
 
 # Install dependencies
 pip install -r requirements.txt
@@ -68,7 +68,7 @@ python main.py
 ### Web GUI
 
 ```bash
-cd 2fa-shield/web
+cd TWO-FACTOR-AUTHENTICATION-SECURITY-SUITE/web
 
 # No build step needed!
 # Option 1: Python server
@@ -166,7 +166,7 @@ Secret Key ──► Fernet Encrypt ──► vault.json (encrypted at rest)
 ## 📁 Project Structure
 
 ```
-2fa-shield/
+TWO-FACTOR-AUTHENTICATION-SECURITY-SUITE/
 ├── tui/
 │   ├── main.py          ← Full TUI application
 │   ├── requirements.txt ← Python dependencies
